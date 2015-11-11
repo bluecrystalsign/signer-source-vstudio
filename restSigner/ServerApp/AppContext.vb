@@ -25,6 +25,9 @@ Imports System.Text
 Imports System.Threading
 Imports System.Windows.Forms
 Imports System.Web.Script.Serialization
+Imports System.Uri
+Imports System.Web.HttpUtility
+Imports System.Web
 
 Public Class AppContext
     Inherits ApplicationContext
@@ -132,17 +135,22 @@ Public Class AppContext
     Private Sub Run(ByVal msg As String, ByVal encoder As ASCIIEncoding, ByVal clientStream As NetworkStream)
         Dim jsonOut As String = ""
         Dim buffer() As Byte
-        Dim parts As String() = Split(msg, vbCrLf + "" + vbCrLf)
+        'Dim parts As String() = Split(msg, vbCrLf + "" + vbCrLf)
+        Dim parts As String() = msg.Split(New Char() {" "c})
         Dim jsonIn As String = parts(1)
 
         If msg.StartsWith("GET /test") Then
             jsonOut = test()
         ElseIf msg.StartsWith("GET /cert") Then
             jsonOut = cert(jsonIn)
+        ElseIf msg.StartsWith("GET /keySize") Then
+            jsonOut = keySize(jsonIn)
         ElseIf msg.StartsWith("OPTIONS /sign") Then
             jsonOut = options()
-        ElseIf msg.StartsWith("POST /sign") Then
-            jsonOut = sign(jsonIn)
+        ElseIf msg.StartsWith("PUT /sign") Then
+            jsonOut = putSign(jsonIn)
+        ElseIf msg.StartsWith("GET /sign") Then
+            jsonOut = getSign(jsonIn)
         Else
             Dim header404 As String = "HTTP/1.x 404 NOT FOUND" + vbCrLf + "Connection: Close()" + vbCrLf + "Content-Type: text/html; charset=UTF-8" + vbCrLf + vbCrLf + "Error 404: File not found."
             buffer = encoder.GetBytes(header404)
@@ -169,6 +177,22 @@ Public Class AppContext
         Return ""
     End Function
 
+    Function keySize(jsonIn As String) As String
+        Dim jsonSerializer As New JavaScriptSerializer
+        'Dim keySizeRequest As KeySizeRequest = jsonSerializer.Deserialize(Of KeySizeRequest)(jsonIn)
+
+        Dim myUri As New Uri("http://localhost/" + jsonIn)
+        Dim thumbprint As String = HttpUtility.ParseQueryString(myUri.Query).Get("thumbprint")
+
+        Dim keySizeResponse As New KeySizeResponse
+        keySizeResponse.size = getKeySizeByThumbprint(thumbprint)
+
+
+        Dim jsonOut As String = jsonSerializer.Serialize(keySizeResponse)
+
+        Return jsonOut
+    End Function
+
     Function test() As String
         Dim jsonSerializer As New JavaScriptSerializer
 
@@ -183,17 +207,67 @@ Public Class AppContext
     Function cert(jsonIn As String) As String
         Dim jsonSerializer As New JavaScriptSerializer
 
-        Dim certificaterequest As CertificateRequest = jsonSerializer.Deserialize(Of CertificateRequest)(jsonIn)
+        'Dim certificaterequest As CertificateRequest = jsonSerializer.Deserialize(Of CertificateRequest)(jsonIn)
 
         Dim certificateresponse As New CertificateResponse
-        certificateresponse.certificate = getCertificate("Assinatura Digital", "Escolha o certificado que será utilizado na assinatura.", "ICP-Brasil", "")
+        certificateresponse.certificate = getCertificate("Assinatura Digital", "Escolha o certificado que será utilizado na assinatura.", "", "")
         certificateresponse.subject = getSubject()
+        certificateresponse.thumbprint = getThumbprint()
         Dim jsonOut As String = jsonSerializer.Serialize(certificateresponse)
 
         Return jsonOut
     End Function
 
-    Function sign(jsonIn As String) As String
+    Function getSign(jsonIn As String) As String
+        Dim jsonSerializer As New JavaScriptSerializer
+
+        'Dim signrequest As SignRequest = jsonSerializer.Deserialize(Of SignRequest)(jsonIn)
+        Dim signrequest As SignRequest = New SignRequest
+
+        Dim myUri As New Uri("http://localhost/" + jsonIn)
+        signrequest.subject = HttpUtility.ParseQueryString(myUri.Query).Get("subject")
+        signrequest.thumbprint = HttpUtility.ParseQueryString(myUri.Query).Get("thumbprint")
+        signrequest.hashAlg = HttpUtility.ParseQueryString(myUri.Query).Get("hashAlg")
+        signrequest.payload = HttpUtility.ParseQueryString(myUri.Query).Get("payload")
+
+        If signrequest.subject <> Nothing Then
+            Dim s As String = BluC.getCertificateBySubject(signrequest.subject)
+        End If
+
+        If signrequest.thumbprint <> Nothing Then
+            Dim s As String = BluC.getCertificateByThumbprint(signrequest.thumbprint)
+        End If
+
+        Dim signresponse As New SignResponse
+
+        If signrequest.hashAlg <> Nothing Then
+            If signrequest.hashAlg = "PKCS7" Or signrequest.hashAlg = "sha1" Then
+                signresponse.sign = BluC.sign("sha1", signrequest.payload)
+            Else
+                signresponse.sign = BluC.sign("sha256", signrequest.payload)
+            End If
+
+        Else
+            Dim keySize = getKeySize()
+            If keySize < 2048 Or signrequest.policy = "PKCS7" Then
+                signresponse.sign = BluC.sign("sha1", signrequest.payload)
+            Else
+                signresponse.sign = BluC.sign("sha256", signrequest.payload)
+            End If
+
+        End If
+
+
+        signresponse.subject = getSubject()
+        signresponse.thumbprint = getThumbprint()
+        signresponse.errormsg = ""
+
+        Dim jsonOut As String = jsonSerializer.Serialize(signresponse)
+
+        Return jsonOut
+    End Function
+
+    Function putSign(jsonIn As String) As String
         Dim jsonSerializer As New JavaScriptSerializer
 
         Dim signrequest As SignRequest = jsonSerializer.Deserialize(Of SignRequest)(jsonIn)
@@ -202,15 +276,33 @@ Public Class AppContext
             Dim s As String = BluC.getCertificateBySubject(signrequest.subject)
         End If
 
-        Dim keySize = getKeySize()
-        Dim signresponse As New SignResponse
-        If keySize < 2048 Or signrequest.policy = "PKCS7" Then
-            signresponse.sign = BluC.sign("sha1", signrequest.payload)
-        Else
-            signresponse.sign = BluC.sign("sha256", signrequest.payload)
+        If signrequest.thumbprint <> Nothing Then
+            Dim s As String = BluC.getCertificateByThumbprint(signrequest.thumbprint)
         End If
 
+        Dim signresponse As New SignResponse
+
+        If signrequest.hashAlg <> Nothing Then
+            If signrequest.hashAlg = "PKCS7" Or signrequest.hashAlg = "sha1" Then
+                signresponse.sign = BluC.sign("sha1", signrequest.payload)
+            Else
+                signresponse.sign = BluC.sign("sha256", signrequest.payload)
+            End If
+
+        Else
+            Dim keySize = getKeySize()
+            If keySize < 2048 Or signrequest.policy = "PKCS7" Then
+                signresponse.sign = BluC.sign("sha1", signrequest.payload)
+            Else
+                signresponse.sign = BluC.sign("sha256", signrequest.payload)
+            End If
+
+        End If
+
+
         signresponse.subject = getSubject()
+        signresponse.thumbprint = getThumbprint()
+        signresponse.errormsg = ""
 
         Dim jsonOut As String = jsonSerializer.Serialize(signresponse)
 
@@ -222,13 +314,21 @@ Public Class AppContext
         Public status As String
         Public errormsg As String
     End Class
+    Private Class KeySizeRequest
+        Public thumbprint As String
+    End Class
 
+    Private Class KeySizeResponse
+        Public size As Integer
+        Public errormsg As String
+    End Class
     Private Class CertificateRequest
     End Class
 
     Private Class CertificateResponse
         Public certificate As String
         Public subject As String
+        Public thumbprint As String
         Public errormsg As String
     End Class
 
@@ -236,12 +336,15 @@ Public Class AppContext
         Public payload As String
         Public certificate As String
         Public subject As String
+        Public thumbprint As String
         Public policy As String
+        Public hashAlg As String
     End Class
 
     Private Class SignResponse
         Public sign As String
         Public subject As String
+        Public thumbprint As String
         Public errormsg As String
     End Class
 

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BluCRESTSigner", "ServerApp\BluCRESTSigner.vbproj", "{944B77FC-13C9-4930-8369-1E4FEEB20770}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ittruSignAx", "..\activeX\ittruSignAx.csproj", "{8FB729DB-0C2C-4967-887A-7022B1F0ADD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{944B77FC-13C9-4930-8369-1E4FEEB20770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{944B77FC-13C9-4930-8369-1E4FEEB20770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{944B77FC-13C9-4930-8369-1E4FEEB20770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FB729DB-0C2C-4967-887A-7022B1F0ADD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB729DB-0C2C-4967-887A-7022B1F0ADD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB729DB-0C2C-4967-887A-7022B1F0ADD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB729DB-0C2C-4967-887A-7022B1F0ADD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
