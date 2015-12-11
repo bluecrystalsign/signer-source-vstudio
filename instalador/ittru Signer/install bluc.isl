@@ -2655,7 +2655,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Sergio Leal</td><td>0</td><td/><td>346254480</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Sergio Leal</td><td>0</td><td/><td>1579403377</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>287476812</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>287476812</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>287476812</td></row>
@@ -3755,8 +3755,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>287476812</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>287476812</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>287476812</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://bluecryt.al</td><td>0</td><td/><td>346262672</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Sergio Leal</td><td>0</td><td/><td>-1541186258</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.SergioLeal.com</td><td>0</td><td/><td>1579403377</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Sergio Leal</td><td>0</td><td/><td>1579403377</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>blue crystal signer</td><td>0</td><td/><td>1176726637</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Fale conosco http://bluecryst.al</td><td>0</td><td/><td>1176757357</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>287476812</td></row>
@@ -3987,8 +3987,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
-QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
+UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
