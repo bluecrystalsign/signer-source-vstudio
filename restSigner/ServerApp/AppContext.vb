@@ -64,10 +64,21 @@ Public Class AppContext
         Tray.ContextMenuStrip = MainMenu
         Tray.Text = "Blue Crystal REST Signer v1"
 
+        'AddHandler Tray.BalloonTipClicked, AddressOf BalloonTipClicked
+        'AddHandler Tray.Click, AddressOf BalloonTipClicked
+
         'Display
         Tray.Visible = True
 
+        Tray.ShowBalloonTip(1000, "Blue Crystal", "Rest Signer em execução", ToolTipIcon.Info)
+
+
         Server()
+    End Sub
+
+
+    Private Shared Sub BalloonTipClicked(sender As Object, e As EventArgs)
+        'MessageBox.Show(String.Format("Clicked on Notifier for document", "message"))
     End Sub
 
 #End Region

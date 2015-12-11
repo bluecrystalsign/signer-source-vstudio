@@ -58,8 +58,8 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ittruSignAx">
-      <HintPath>..\..\activeX\bin\Debug\ittruSignAx.dll</HintPath>
+    <Reference Include="blueCrystalAx">
+      <HintPath>..\..\activeX\bin\Release\blueCrystalAx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

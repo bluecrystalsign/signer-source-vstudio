@@ -28,4 +28,18 @@
 		</TaggedOutputs> -->
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Limited\InstallShield.targets"/>
+	<ItemGroup>
+		<ProjectReference Include="..\..\restSigner\ServerApp\BluCRESTSigner.vbproj">
+			<Name>BluCRESTSigner</Name>
+			<Project>{944B77FC-13C9-4930-8369-1E4FEEB20770}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\..\activeX\ittruSignAx.csproj">
+			<Name>ittruSignAx</Name>
+			<Project>{8FB729DB-0C2C-4967-887A-7022B1F0ADD1}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\..\nativeMessaging\nativeMessaging\nativeMessaging.vcxproj">
+			<Name>nativeMessaging</Name>
+			<Project>{C3DA6FC8-0E1A-405B-8FF8-8EFFA5278C76}</Project>
+		</ProjectReference>
+	</ItemGroup>
 </Project>

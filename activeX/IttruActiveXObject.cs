@@ -126,7 +126,7 @@ namespace ittru
                     }
                     else if (certificatesFiltered.Count == 1)
                     {
-                        certificate = certificatesFiltered[0];
+                        certificate = certificates[0];
                     }
                     else
                     {
@@ -179,6 +179,12 @@ namespace ittru
         {
             return certificate.Subject;
         }
+
+         [ComVisible(true)]
+         public string getThumbprint()
+         {
+             return certificate.Thumbprint;
+         }
 
         static public byte[] SignMsg(int hashAlg,
                     byte[] msg,
@@ -333,10 +339,140 @@ namespace ittru
 
 
 
+        [ComVisible(true)]
+        public string getCertificateBySubject(string subject)
+        {
+            string certAsString = "";
+            try
+            {
+                
+                X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.OpenExistingOnly);
+                X509Certificate2Collection certificates = store.Certificates;
+                X509Certificate2Collection certificatesFiltered = new X509Certificate2Collection();
+                X509Certificate2Enumerator enumCert = certificates.GetEnumerator();
+                while (enumCert.MoveNext())
+                {
+                    X509Certificate2 certificateTmp = enumCert.Current;
+                    
+                    if (certificateTmp.Subject.Equals(subject))
+                    {
+                        byte[] certAsByte = certificateTmp.Export(X509ContentType.Cert);
+                        certAsString = Convert.ToBase64String(certAsByte);
+
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                //ExceptionHandling.AppException(e);
+                throw e;
+            }
+            return certAsString;
+        }
+
+
+        [ComVisible(true)]
+        public string getCertificateByThumbprint(string thumbprint)
+        {
+            string certAsString = "";
+            try
+            {
+
+                X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.OpenExistingOnly);
+                X509Certificate2Collection certificates = store.Certificates;
+                X509Certificate2Collection certificatesFiltered = new X509Certificate2Collection();
+                X509Certificate2Enumerator enumCert = certificates.GetEnumerator();
+                while (enumCert.MoveNext())
+                {
+                    X509Certificate2 certificateTmp = enumCert.Current;
+
+                    if (certificateTmp.Thumbprint.Equals(thumbprint))
+                    {
+                        byte[] certAsByte = certificateTmp.Export(X509ContentType.Cert);
+                        certAsString = Convert.ToBase64String(certAsByte);
+
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                //ExceptionHandling.AppException(e);
+                throw e;
+            }
+            return certAsString;
+        }
+
+        [ComVisible(true)]
+        public void selectCertificateByThumbprint(string thumbprint)
+        {
+            try
+            {
+
+                X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.OpenExistingOnly);
+                X509Certificate2Collection certificates = store.Certificates;
+                X509Certificate2Collection certificatesFiltered = new X509Certificate2Collection();
+                X509Certificate2Enumerator enumCert = certificates.GetEnumerator();
+                while (enumCert.MoveNext())
+                {
+                    X509Certificate2 certificateTmp = enumCert.Current;
+
+                    if (certificateTmp.Thumbprint.Equals(thumbprint))
+                    {
+                        certificate = certificateTmp;
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                //ExceptionHandling.AppException(e);
+                throw e;
+            }
+            
+        }
 
 
 
+        [ComVisible(true)]
+        public int getKeySizeByThumbprint(string thumbprint)
+        {
+            int keySize = 0;
+            try
+            {
 
+                X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.OpenExistingOnly);
+                X509Certificate2Collection certificates = store.Certificates;
+                X509Certificate2Collection certificatesFiltered = new X509Certificate2Collection();
+                X509Certificate2Enumerator enumCert = certificates.GetEnumerator();
+                while (enumCert.MoveNext())
+                {
+                    X509Certificate2 certificateTmp = enumCert.Current;
+
+                    if (certificateTmp.Thumbprint.Equals(thumbprint))
+                    {
+
+                        keySize = certificateTmp.PublicKey.Key.KeySize;
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                //ExceptionHandling.AppException(e);
+                throw e;
+            }
+            return keySize;
+        }
 
 
 
