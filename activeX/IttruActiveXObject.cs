@@ -97,6 +97,15 @@ namespace ittru
                 X509Certificate2Enumerator enumCert = certificates.GetEnumerator();
                 while(enumCert.MoveNext()){
                     X509Certificate2 certificateTmp = enumCert.Current;
+                    DateTime curTime = DateTime.Now;
+
+                    bool datesOk = false;
+                    int resultNotBefore = DateTime.Compare(curTime, certificateTmp.NotBefore);
+                    int resultNotAfter = DateTime.Compare(curTime, certificateTmp.NotAfter);
+                    if (resultNotBefore >= 0 && resultNotAfter <= 0)
+                    {
+                        datesOk = true;
+                    }
                     bool subjectOk = true;
                     if (subjectRegex.Length > 0) {
                         Match matchSubject = Regex.Match(certificateTmp.Subject, subjectRegex,
@@ -112,7 +121,7 @@ namespace ittru
                             RegexOptions.IgnoreCase);
                         issuerOk = matchIssuer.Success;
                     }
-                    if (subjectOk && issuerOk)
+                    if (subjectOk && issuerOk && certificateTmp.HasPrivateKey && datesOk)
                     {
                         certificatesFiltered.Add(certificateTmp);
                     }
