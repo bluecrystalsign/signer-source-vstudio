@@ -9,16 +9,25 @@ using namespace System;
 		{
 			signerCapi sign = signerCapi();
 			try {
-				
+				/* rotina de testes para prequiçosos!
+				char * cert = sign.getCertificate("", "", "", "");
+				char * thumbrpint = sign.getThumbprint();
+				char * subject = sign.getSubject();
+				int keySize = sign.getKeySize();
+				sign.getCertificateStdOut(cert, thumbrpint, subject, keySize);
+
+				char* signResult = sign.sign(2, 
+					"MYIBqzAcBgkqhkiG9w0BCQUxDxcNMTYwNjI0MTIyNTQxWjCBlAYLKoZIhvcNAQkQAg8xgYQwgYEGCGBMAQcBAQIBMC8wCwYJYIZIAWUDBAIBBCDdV8mKQxO8E5jOZUPTgCRYlXz3Fq4ylOxNjCYlEpHmwTBEMEIGCyqGSIb3DQEJEAUBFjNodHRwOi8vcG9saXRpY2FzLmljcGJyYXNpbC5nb3YuYnIvUEFfQURfUkJfdjJfMS5kZXIwgagGCyqGSIb3DQEJEAIvMYGYMIGVMIGSMIGPBCAEOJH1iLiclMLGoGvr6N/90CxfzAGsMz/eGG5A29xE0jBrMF2kWzBZMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZFgNybnAxKzApBgNVBAMTIlJlZGUgTmFjaW9uYWwgZGUgRW5zaW5vIGUgUGVzcXVpc2ECCko9ny4AAQAADQMwLwYJKoZIhvcNAQkEMSIEIHHIK69uLYZh22xEaGgL1TtWl4E2swKeWM723c4gNFtMMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwE=",
+					thumbrpint);
+
+				exit(0);
+				*/
 
 
 				char* inJson = sign.ReadFromStdIn();
-				//char* inJson = "{\"operation\":\"sign\",\"thumbprint\":\"3B6D44ADF0BBFF00EFD6276427DCF011B978DB00\",\"sign_type\":2,\"sa_b64\":\"MYIB+DAcBgkqhkiG9w0BCQUxDxcNMTUxMjAyMTg1NzE1WjCBlAYLKoZIhvcNAQkQAg8xgYQwgYEGCGBMAQcBAQIBMC8wCwYJYIZIAWUDBAIBBCDdV8mKQxO8E5jOZUPTgCRYlXz3Fq4ylOxNjCYlEpHmwTBEMEIGCyqGSIb3DQEJEAUBFjNodHRwOi8vcG9saXRpY2FzLmljcGJyYXNpbC5nb3YuYnIvUEFfQURfUkJfdjJfMS5kZXIwgfUGCyqGSIb3DQEJEAIvMYHlMIHiMIHfMIHcBCCwYEUeTbg/lemacOmYh9eaBFm/SJH0zvvyGjuFMhdimzCBtzCBoaSBnjCBmzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxQTA/BgNVBAMTOENPTU9ETyBTSEEtMjU2IENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAtIobX+vA5SqUhPODdUlNEzAvBgkqhkiG9w0BCQQxIgQgKHGdMaCCt021jz8m+iWZZs8FaDPc9qipzV3LW1H8DOMwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHAQ==\"}";
 
 				std::map<int, char*>  appMap = sign.parseJson(inJson);
-				//std::map<int, char*>  appMap;
 				const char * op = appMap[OPERATION];
-				//const char * op = "getCertificate";
 				const char * opRef[] = { "getCertificate", "getKeySize", "getSubject", "sign", "isActive" };
 
 				if (strcmp(op, opRef[0]) == 0){
@@ -67,14 +76,21 @@ using namespace System;
 					sign.printToStdOut(jsonOut);
 				}
 			}
-			catch (...){
-				char* jsonOut = "{\"status\":\"2\",\"message\":\"exception\"}";
-				sign.printToStdOut(jsonOut);
+			catch (Exception^ e){
+				String^ messageEx = e->Message;
+				char* messageCharP = sign.convert(messageEx);
+				std::string str1("{\"status\":\"2\",\"message\":\"");
+				std::string str2(messageCharP);
+				std::string str3("\"}");
+				//				char* jsonOut = "{\"status\":\"2\",\"message\":\""+messageEx->ToCharArray+"\"}";
+				std::string jsonOut =  str1+ str2 + str3;
+				char *cstr = new char[jsonOut.length() + 1];
+				strcpy(cstr, jsonOut.c_str());
+				sign.printToStdOut(cstr);
 			}
 
 
 				
 			return 0;
 		}
-
 

@@ -165,11 +165,34 @@ extern "C"  __declspec(dllexport)  char* sign(int hashAlg, char* saValue){
 								break;
 
 					}
+
+					array<unsigned char, 1>^ privateKeyBlob;
+
 					AsymmetricAlgorithm ^ privateKey = certificate->PrivateKey;
 					RSACryptoServiceProvider ^ privateCSP = (RSACryptoServiceProvider ^) privateKey;
 
 					AsymmetricAlgorithm ^ publicKey  = certificate->PublicKey->Key;
 					RSACryptoServiceProvider ^ publicCSP = (RSACryptoServiceProvider ^) publicKey;
+
+					try
+					{
+						privateKeyBlob = privateCSP->ExportCspBlob(true);
+
+						CspParameters^ cp = gcnew CspParameters(24);
+						RSACryptoServiceProvider^ rsa = gcnew RSACryptoServiceProvider(cp);
+						rsa->ImportCspBlob(privateKeyBlob);
+						privateKey = rsa;
+					}
+					catch (Exception^ e)
+					{
+						// chave nao é exportavel.
+						// Ou é um token / smart card ou não vai dar certo de tiver no
+						// CSP errado.
+					}
+
+
+
+
 
 					bool verify = false;
 					

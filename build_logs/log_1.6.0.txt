@@ -1,0 +1,126 @@
+1>------ Build started: Project: nativeMessaging, Configuration: Release Win32 ------
+1>  nativeMessaging.vcxproj -> C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\instalador\Release\nativeMessaging.exe
+2>------ Build started: Project: install bluc, Configuration: CD_ROM ------
+2>Created release folders
+2>ISEXP : warning : -7235: InstallShield could not create the software identification tag because the Tag Creator ID setting in the General Information view is empty.
+2>AdminExecuteSequence table successfully built
+2>AdminUISequence table successfully built
+2>AdvtExecuteSequence table successfully built
+2>AdvtUISequence table successfully built
+2>InstallExecuteSequence table successfully built
+2>InstallUISequence table successfully built
+2>Directory table successfully built
+2>Feature table successfully built
+2>FeatureComponents table successfully built
+2>Component table successfully built
+2>Loading File table
+2>Building File table
+2>ISEXP : warning : -6245: One or more of the project's components contain .NET properties that require the .NET Framework.  It is recommended that the release include the .NET Framework.
+2>File table successfully built
+2>Building MsiFileHash table
+2>MsiFileHash table successfully built
+2>Class table successfully built
+2>Extension table successfully built
+2>ActionText table successfully built
+2>AppSearch table successfully built
+2>CCPSearch table successfully built
+2>Condition table successfully built
+2>AppId table successfully built
+2>Started signing 50BA.tmp ...
+2>Property table successfully built
+2>Binary table successfully built
+2>CompLocator table successfully built
+2>ControlCondition table successfully built
+2>ControlEvent table successfully built
+2>CreateFolder table successfully built
+2>CustomAction table successfully built
+2>Error table successfully built
+2>DrLocator table successfully built
+2>DuplicateFile table successfully built
+2>Environment table successfully built
+2>EventMapping table successfully built
+2>Font table successfully built
+2>ProgId table successfully built
+2>ISIISItem table successfully built
+2>ISIISProperty table successfully built
+2>ISSelfReg table successfully built
+2>IniFile table successfully built
+2>IniLocator table successfully built
+2>LaunchCondition table successfully built
+2>MIME table successfully built
+2>MoveFile table successfully built
+2>MsiAssembly table successfully built
+2>MsiAssemblyName table successfully built
+2>MsiDigitalCertificate table successfully built
+2>MsiDigitalSignature table successfully built
+2>MsiPackageCertificate table successfully built
+2>MsiPatchCertificate table successfully built
+2>MsiShortcutProperty table successfully built
+2>PatchPackage table successfully built
+2>PublishComponent table successfully built
+2>RegLocator table successfully built
+2>Registry table successfully built
+2>RemoveFile table successfully built
+2>RemoveIniFile table successfully built
+2>RemoveRegistry table successfully built
+2>ReserveCost table successfully built
+2>SelfReg table successfully built
+2>ServiceControl table successfully built
+2>ServiceInstall table successfully built
+2>Shortcut table successfully built
+2>Signature table successfully built
+2>TextStyle table successfully built
+2>TypeLib table successfully built
+2>UIText table successfully built
+2>Upgrade table successfully built
+2>Verb table successfully built
+2>_Validation table successfully built
+2>Building COM .NET Interop information for components
+2>Searching project for extract-at-build components...
+2>Extracting COM data from 1 component(s)
+2>ISEXP : warning : -4354: The build was unable to extract COM information from the file C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\activeX\bin\Release\blueCrystalAx.dll in component ittruSignAx.Primary_output. Please ensure that the file is self-registering and verify that the self-registration process does not fail.
+2>Building scanned MsiAssembly records
+2>Building scanned MsiAssemblyName records
+2>Validating Custom Action sequencing
+2>Embedding manifest SetupExe.Invoker.manifest into setup.exe
+2>Dialog AdminChangeFolder for language English (United States) built
+2>Dialog AdminNetworkLocation for language English (United States) built
+2>Dialog AdminWelcome for language English (United States) built
+2>Dialog CancelSetup for language English (United States) built
+2>Dialog CustomSetup for language English (United States) built
+2>Dialog CustomSetupTips for language English (United States) built
+2>Dialog CustomerInformation for language English (United States) built
+2>Dialog DatabaseFolder for language English (United States) built
+2>Dialog DestinationFolder for language English (United States) built
+2>Dialog DiskSpaceRequirements for language English (United States) built
+2>Dialog FilesInUse for language English (United States) built
+2>Dialog InstallChangeFolder for language English (United States) built
+2>Dialog InstallWelcome for language English (United States) built
+2>Dialog LicenseAgreement for language English (United States) built
+2>Dialog MaintenanceType for language English (United States) built
+2>Dialog MaintenanceWelcome for language English (United States) built
+2>Dialog MsiRMFilesInUse for language English (United States) built
+2>Dialog OutOfSpace for language English (United States) built
+2>Dialog PatchWelcome for language English (United States) built
+2>Dialog ReadmeInformation for language English (United States) built
+2>Dialog ReadyToInstall for language English (United States) built
+2>Dialog ReadyToRemove for language English (United States) built
+2>Dialog SetupCompleteError for language English (United States) built
+2>Dialog SetupCompleteSuccess for language English (United States) built
+2>Dialog SetupError for language English (United States) built
+2>Dialog SetupInitialization for language English (United States) built
+2>Dialog SetupInterrupted for language English (United States) built
+2>Dialog SetupProgress for language English (United States) built
+2>Dialog SetupResume for language English (United States) built
+2>Dialog SetupType for language English (United States) built
+2>Dialog SplashBitmap for language English (United States) built
+2>Resolving strings...
+2>Language English (United States) built
+2>Files built
+2>Media table successfully built
+2>Setup.exe created
+2>Automatic update notification disabled
+2>Express\CD_ROM - 0 error(s), 3 warning(s)
+2>Log file has been created: <file:C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\instalador\ittru Signer\install bluc\Express\CD_ROM\LogFiles\7-7-2016 02-40-59.txt>
+2>
+========== Build: 2 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========

@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="AppContext.vb" />
     <Compile Include="BluC.vb" />
+    <Compile Include="DebugInfo.vb" />
     <Compile Include="Launch.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <EmbeddedResource Include="My Project\Resources.resx">

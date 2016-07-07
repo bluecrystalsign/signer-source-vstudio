@@ -41,11 +41,15 @@ Public Class AppContext
     Private WithEvents mnuDisplayForm As ToolStripMenuItem
     Private WithEvents mnuSep1 As ToolStripSeparator
     Private WithEvents mnuExit As ToolStripMenuItem
+    Private WithEvents mnuAbout As ToolStripMenuItem
 
     Private tcpListener As TcpListener
     Private listenThread As Thread
     Private connectedClients As Integer = 0
     Private Delegate Sub WriteMessageDelegate(ByVal msg As String)
+    Private messageVersion As String
+    Private messageBrand As String
+
 
 #End Region
 
@@ -54,15 +58,18 @@ Public Class AppContext
     Public Sub New()
         'Initialize the menus
         mnuSep1 = New ToolStripSeparator()
+        mnuAbout = New ToolStripMenuItem("Sobre")
         mnuExit = New ToolStripMenuItem("Encerrar")
         MainMenu = New ContextMenuStrip
+        MainMenu.Items.AddRange(New ToolStripItem() {mnuAbout})
         MainMenu.Items.AddRange(New ToolStripItem() {mnuExit})
-
+        messageVersion = "REST Signer v1.6.0"
+        messageBrand = "Blue Crystal"
         'Initialize the tray
         Tray = New NotifyIcon
         Tray.Icon = My.Resources.TrayIcon
         Tray.ContextMenuStrip = MainMenu
-        Tray.Text = "Blue Crystal REST Signer v1"
+        Tray.Text = messageBrand + " " + messageVersion
 
         'AddHandler Tray.BalloonTipClicked, AddressOf BalloonTipClicked
         'AddHandler Tray.Click, AddressOf BalloonTipClicked
@@ -70,7 +77,7 @@ Public Class AppContext
         'Display
         Tray.Visible = True
 
-        Tray.ShowBalloonTip(1000, "Blue Crystal", "Rest Signer em execução", ToolTipIcon.Info)
+        Tray.ShowBalloonTip(1000, messageBrand, messageVersion + " em execução", ToolTipIcon.Info)
 
 
         Server()
@@ -162,6 +169,8 @@ Public Class AppContext
             jsonOut = putSign(jsonIn)
         ElseIf msg.StartsWith("GET /sign") Then
             jsonOut = getSign(jsonIn)
+        ElseIf msg.StartsWith("GET /debug") Then
+            jsonOut = debugInfo()
         Else
             Dim header404 As String = "HTTP/1.x 404 NOT FOUND" + vbCrLf + "Connection: Close()" + vbCrLf + "Content-Type: text/html; charset=UTF-8" + vbCrLf + vbCrLf + "Error 404: File not found."
             buffer = encoder.GetBytes(header404)
@@ -208,12 +217,27 @@ Public Class AppContext
         Dim jsonSerializer As New JavaScriptSerializer
 
         Dim testresponse As New TestResponse
-        testresponse.provider = "BluC REST Signer v1"
+        testresponse.provider = "BluC REST Signer v1.6.0"
         testresponse.status = "OK"
         Dim jsonOut As String = jsonSerializer.Serialize(testresponse)
 
         Return jsonOut
     End Function
+
+    Function debugInfo() As String
+        Dim jsonSerializer As New JavaScriptSerializer
+
+        Dim dbgInfo As DebugInfo = New DebugInfo
+        dbgInfo = BluC.debugInfo()
+
+        Dim resp As DebugResponse = New DebugResponse
+
+        resp.certInfo = dbgInfo
+
+        Dim jsonOut As String = jsonSerializer.Serialize(resp)
+        Return jsonOut
+    End Function
+
 
     Function cert(jsonIn As String) As String
         Dim jsonSerializer As New JavaScriptSerializer
@@ -320,6 +344,14 @@ Public Class AppContext
         Return jsonOut
     End Function
 
+    'Private Monsters As New List(Of Monster)
+    'later add them into this collection
+    'Monsters.Add(New Monster(50, 20, 5))
+
+    Public Class DebugResponse
+        Public certInfo As DebugInfo
+    End Class
+
     Private Class TestResponse
         Public provider As String
         Public status As String
@@ -375,6 +407,10 @@ Public Class AppContext
         Application.Exit()
     End Sub
 
+    Private Sub mnuAbout_Click(ByVal sender As Object, ByVal e As System.EventArgs) _
+    Handles mnuAbout.Click
+        MessageBox.Show(messageVersion)
+    End Sub
 
 #End Region
 

@@ -83,6 +83,102 @@ namespace ittru
 			
 		}
 
+       [ComVisible(true)]
+        public string debugInfo() {
+            try
+            {
+                String ret = "";
+                X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.OpenExistingOnly);
+                X509Certificate2Collection certificates = store.Certificates;
+                X509Certificate2Collection certificatesFiltered = new X509Certificate2Collection();
+                X509Certificate2Enumerator enumCert = certificates.GetEnumerator();
+
+
+                while (enumCert.MoveNext())
+                {
+                    X509Certificate2 certificateTmp = enumCert.Current;
+                    DateTime curTime = DateTime.Now;
+                    DateTime notBefore = certificateTmp.NotBefore;
+                    DateTime notAfter = certificateTmp.NotAfter;
+                    string subject = certificateTmp.SubjectName.Name;
+                    string issuer = certificateTmp.IssuerName.Name;
+                    Boolean certIsOk = false;
+
+
+                    bool datesOk = false;
+                    int resultNotBefore = DateTime.Compare(curTime, certificateTmp.NotBefore);
+                    int resultNotAfter = DateTime.Compare(curTime, certificateTmp.NotAfter);
+                    if (resultNotBefore >= 0 && resultNotAfter <= 0)
+                    {
+                        datesOk = true;
+                    }
+
+                    bool keyUsageOk = false;
+                    X509ExtensionCollection certExtList = certificateTmp.Extensions; ;
+                    foreach (X509Extension extension in certExtList)
+                    {
+                        if (extension.Oid.FriendlyName == "Key Usage")
+                        {
+                            X509KeyUsageExtension kuExt = (X509KeyUsageExtension)extension;
+                            X509KeyUsageFlags kuFlags = kuExt.KeyUsages;
+                            if (
+                                ((kuFlags & X509KeyUsageFlags.DigitalSignature) != X509KeyUsageFlags.None) &&
+                                ((kuFlags & X509KeyUsageFlags.NonRepudiation) != X509KeyUsageFlags.None))
+                            {
+                                keyUsageOk = true;
+                            }
+                        }
+
+                    }
+/*
+                    bool subjectOk = true;
+                    if (subjectRegex.Length > 0)
+                    {
+                        Match matchSubject = Regex.Match(certificateTmp.Subject, subjectRegex,
+                        RegexOptions.IgnoreCase);
+                        subjectOk = matchSubject.Success;
+
+                    }
+
+                    bool issuerOk = true;
+                    if (issuerRegex.Length > 0)
+                    {
+                        Match matchIssuer = Regex.Match(certificateTmp.Issuer, issuerRegex,
+                            RegexOptions.IgnoreCase);
+                        issuerOk = matchIssuer.Success;
+                    }
+ */
+                    if (
+                        //subjectOk && issuerOk && 
+                        certificateTmp.HasPrivateKey && datesOk && keyUsageOk)
+                    {
+                        certIsOk = true;
+                    }
+                    ret += "certIsOk=" + certIsOk;
+                    ret += "subject=" + subject;
+                    //ret += "subjectOk=" + subjectOk;
+                    ret += "issuer=" + issuer;
+                    //ret += "issuerOk=" + issuerOk;
+                    ret += "notBefore=" + notBefore;
+                    ret += "notAfter=" + notAfter;
+                    ret += "datesOk=" + datesOk;
+                    ret += "keyUsageOk=" + keyUsageOk;
+                    ret += "isPrivateKey=" + certificateTmp.HasPrivateKey;
+                    ret += "\n";
+
+                }
+
+                return ret;
+            }
+            catch (Exception e)
+            {
+                //ExceptionHandling.AppException(e);
+                throw e;
+            }
+
+        }
+
          [ComVisible(true)]
         public string getCertificate(string title, string message, String subjectRegex, string issuerRegex)
         {
@@ -106,6 +202,25 @@ namespace ittru
                     {
                         datesOk = true;
                     }
+
+                    bool keyUsageOk = false;
+                    X509ExtensionCollection certExtList = certificateTmp.Extensions;;
+                    foreach (X509Extension extension in certExtList)
+                    {
+                        if (extension.Oid.FriendlyName == "Key Usage")
+                        {
+                            X509KeyUsageExtension kuExt = (X509KeyUsageExtension)extension;
+                            X509KeyUsageFlags kuFlags = kuExt.KeyUsages;
+                            if (
+                                ( (kuFlags & X509KeyUsageFlags.DigitalSignature) != X509KeyUsageFlags.None) &&
+                                ( (kuFlags & X509KeyUsageFlags.NonRepudiation) != X509KeyUsageFlags.None) )
+                                {
+                                    keyUsageOk = true;
+                                }
+                        }
+
+                    }
+
                     bool subjectOk = true;
                     if (subjectRegex.Length > 0) {
                         Match matchSubject = Regex.Match(certificateTmp.Subject, subjectRegex,
@@ -121,7 +236,7 @@ namespace ittru
                             RegexOptions.IgnoreCase);
                         issuerOk = matchIssuer.Success;
                     }
-                    if (subjectOk && issuerOk && certificateTmp.HasPrivateKey && datesOk)
+                    if (subjectOk && issuerOk && certificateTmp.HasPrivateKey && datesOk && keyUsageOk)
                     {
                         certificatesFiltered.Add(certificateTmp);
                     }
@@ -262,11 +377,27 @@ namespace ittru
 
                     }
 
+                    byte[] privateKeyBlob;
                     RSACryptoServiceProvider privateKey
                              = certificate.PrivateKey as RSACryptoServiceProvider;
                     RSACryptoServiceProvider publicKey
                                 = certificate.PublicKey.Key as RSACryptoServiceProvider;
+                    RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                    try
+                    {
+                        privateKeyBlob = privateKey.ExportCspBlob(true);
 
+                        CspParameters cp = new CspParameters(24);
+                        rsa = new RSACryptoServiceProvider(cp);
+                        rsa.ImportCspBlob(privateKeyBlob);
+                        privateKey = rsa;
+                    }
+                    catch
+                    {
+                        // chave nao é exportavel.
+                        // Ou é um token / smart card ou não vai dar certo de tiver no
+                        // CSP errado.
+                    }
 
                     bool verify = false;
                     signature = privateKey.SignData(content, hash);
@@ -278,6 +409,7 @@ namespace ittru
             }
             catch (Exception e)
             {
+
                 //ExceptionHandling.AppException(e);
                 throw e;
             }

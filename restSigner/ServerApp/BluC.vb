@@ -35,6 +35,21 @@ Module BluC
     Public Function getSubject() As String
         Return signer.getSubject
     End Function
+    Public Function debugInfo() As DebugInfo
+        Dim ret As DebugInfo = New DebugInfo
+
+        Dim store As New X509Store(StoreName.My)
+        store.Open(OpenFlags.OpenExistingOnly)
+        Dim certificates As X509Certificate2Collection = store.Certificates
+        For Each nextCert As X509Certificate2 In certificates
+            Dim nextDbgInfo As DbgAppCerts = New DbgAppCerts
+            nextDbgInfo.subject = nextCert.SubjectName.Name
+            ret.certList.Add(nextDbgInfo)
+
+        Next
+
+        Return ret
+    End Function
 
     Public Function getThumbprint() As String
         Return signer.getThumbprint
@@ -64,5 +79,7 @@ Module BluC
     Public Function getCertificateBySubject(subject As String) As String
         Return signer.getCertificateBySubject(subject)
     End Function
+
+
 End Module
 

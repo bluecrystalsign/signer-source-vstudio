@@ -14,3 +14,4 @@ C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\restSigner\Server
 C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\restSigner\ServerApp\bin\Debug\BluCRESTSigner.pdb
 C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\restSigner\ServerApp\obj\Debug\BluCRESTSigner.exe
 C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\restSigner\ServerApp\obj\Debug\BluCRESTSigner.pdb
+C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\restSigner\ServerApp\bin\Debug\blueCrystalAx.dll
