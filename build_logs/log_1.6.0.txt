@@ -1,5 +1,5 @@
 1>------ Build started: Project: nativeMessaging, Configuration: Release Win32 ------
-1>  nativeMessaging.vcxproj -> C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\instalador\Release\nativeMessaging.exe
+1>  nativeMessaging.vcxproj -> \signer-source-vstudio\instalador\Release\nativeMessaging.exe
 2>------ Build started: Project: install bluc, Configuration: CD_ROM ------
 2>Created release folders
 2>ISEXP : warning : -7235: InstallShield could not create the software identification tag because the Tag Creator ID setting in the General Information view is empty.
@@ -78,7 +78,7 @@
 2>Building COM .NET Interop information for components
 2>Searching project for extract-at-build components...
 2>Extracting COM data from 1 component(s)
-2>ISEXP : warning : -4354: The build was unable to extract COM information from the file C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\activeX\bin\Release\blueCrystalAx.dll in component ittruSignAx.Primary_output. Please ensure that the file is self-registering and verify that the self-registration process does not fail.
+2>ISEXP : warning : -4354: The build was unable to extract COM information from the file \signer-source-vstudio\activeX\bin\Release\blueCrystalAx.dll in component ittruSignAx.Primary_output. Please ensure that the file is self-registering and verify that the self-registration process does not fail.
 2>Building scanned MsiAssembly records
 2>Building scanned MsiAssemblyName records
 2>Validating Custom Action sequencing
@@ -121,6 +121,6 @@
 2>Setup.exe created
 2>Automatic update notification disabled
 2>Express\CD_ROM - 0 error(s), 3 warning(s)
-2>Log file has been created: <file:C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\instalador\ittru Signer\install bluc\Express\CD_ROM\LogFiles\7-7-2016 02-40-59.txt>
+2>Log file has been created: <file:\signer-source-vstudio\instalador\ittru Signer\install bluc\Express\CD_ROM\LogFiles\7-7-2016 02-40-59.txt>
 2>
 ========== Build: 2 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========

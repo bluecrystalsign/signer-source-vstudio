@@ -118,7 +118,7 @@ namespace ittru
                     X509ExtensionCollection certExtList = certificateTmp.Extensions; ;
                     foreach (X509Extension extension in certExtList)
                     {
-                        if (extension.Oid.FriendlyName == "Key Usage")
+                        if (extension.Oid.Value == "2.5.29.15")
                         {
                             X509KeyUsageExtension kuExt = (X509KeyUsageExtension)extension;
                             X509KeyUsageFlags kuFlags = kuExt.KeyUsages;
@@ -207,12 +207,13 @@ namespace ittru
                     X509ExtensionCollection certExtList = certificateTmp.Extensions;;
                     foreach (X509Extension extension in certExtList)
                     {
-                        if (extension.Oid.FriendlyName == "Key Usage")
+                        if (extension.Oid.Value == "2.5.29.15")
                         {
                             X509KeyUsageExtension kuExt = (X509KeyUsageExtension)extension;
                             X509KeyUsageFlags kuFlags = kuExt.KeyUsages;
                             if (
-                                ( (kuFlags & X509KeyUsageFlags.DigitalSignature) != X509KeyUsageFlags.None) &&
+                                // pessima politica, deveria ser um && mas vou usar um || pra ser mais flexivel...
+                                ( (kuFlags & X509KeyUsageFlags.DigitalSignature) != X509KeyUsageFlags.None) ||
                                 ( (kuFlags & X509KeyUsageFlags.NonRepudiation) != X509KeyUsageFlags.None) )
                                 {
                                     keyUsageOk = true;

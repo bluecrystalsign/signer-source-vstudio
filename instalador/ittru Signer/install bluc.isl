@@ -51,7 +51,7 @@
 	
 	<summary>
 		<codepage>1252</codepage>
-		<title>Installation Database</title>
+		<title>##ID_STRING5##</title>
 		<subject>##ID_STRING3##</subject>
 		<author>##ID_STRING2##</author>
 		<keywords>Installer,MSI,Database</keywords>
@@ -341,6 +341,7 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>BluCRESTSigner.Primary_output</td><td>{C9FFB2B4-C9F3-4ACB-94C9-95B6C88D969D}</td><td>INSTALLDIR</td><td>2</td><td/><td>blucrestsigner.primary_outpu</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{C809F065-C069-401D-BB6F-6B8E3DE6B906}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{F18030CB-0A7B-4CE1-BB1C-CCEF1E161CD6}</td><td>INSTALLDIR</td><td>258</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ittruSignAx.Primary_output</td><td>{18DFEF67-3C6E-4BC1-AC0D-A478AB34273E}</td><td>INSTALLDIR</td><td>2</td><td/><td>ittrusignax.primary_output</td><td>52</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>nativeMessaging.Primary_Output</td><td>{FCFD7084-A80B-49EF-B7D5-A7EA939F4A9C}</td><td>INSTALLDIR</td><td>2</td><td/><td>nativemessaging.primary_outp</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
@@ -1055,6 +1056,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>INSTALLDIR</td><td>BluCRESTSigner.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ittruSignAx.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>nativeMessaging.Primary_Output</td></row>
 	</table>
@@ -1873,6 +1875,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>BluCRESTSigner.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>ittruSignAx.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>nativeMessaging.Primary_Output</td></row>
 	</table>
@@ -1889,7 +1892,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>bluc.signer.json</td><td>ISX_DEFAULTCOMPONENT1</td><td>BLUCSI~1.JSO|bluc.signer.json</td><td>0</td><td/><td/><td/><td>1</td><td>C:\x\nm_host\bluc.signer.json</td><td>1</td><td/></row>
+		<row><td>bluc.signer.json</td><td>ISX_DEFAULTCOMPONENT1</td><td>BLUCSI~1.JSO|bluc.signer.json</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\sergio.fonseca\Documents\GitHub\signer-source-vstudio\instalador\bluc.signer.json</td><td>1</td><td/></row>
 		<row><td>blucrestsigner.primary_outpu</td><td>BluCRESTSigner.Primary_output</td><td>BluCRESTSigner.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;BluCRESTSigner&gt;|Built</td><td>3</td><td/></row>
 		<row><td>ittrusignax.primary_output</td><td>ittruSignAx.Primary_output</td><td>ittruSignAx.Primary output</td><td>0</td><td/><td/><td>0</td><td>1</td><td>&lt;ittruSignAx&gt;|Built</td><td>3</td><td/></row>
 		<row><td>nativemessaging.primary_outp</td><td>nativeMessaging.Primary_Output</td><td>nativeMessaging.Primary Output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;nativeMessaging&gt;|Built</td><td>3</td><td/></row>
@@ -2038,6 +2041,7 @@
 		<col def="S0">Miscellaneous</col>
 		<row><td>BluCRESTSigner.Primary_output</td><td/><td/><td>_4DB08EEE_D81B_41C9_B151_7922015BEBDC_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_61E01740_7C65_415A_A612_622C9F5C4A32_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_903A17BC_D755_4510_81BE_DB01733990E9_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ittruSignAx.Primary_output</td><td/><td/><td>_BC5DC076_6218_4099_B69A_7CA0413CD350_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>nativeMessaging.Primary_Output</td><td/><td/><td>_C4CF949F_52EC_4024_8549_A00614FF8EFD_FILTER</td><td/><td/><td/><td/></row>
 	</table>
@@ -2141,6 +2145,8 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s255">ISMergeModule_</col>
 		<col key="yes" def="i2">Language_</col>
+		<row><td>AlwaysInstall</td><td>Microsoft_VC120_MFC_x64.05F0B5F5_44A8_3793_976B_A4F17AECF92C</td><td>0</td></row>
+		<row><td>AlwaysInstall</td><td>Microsoft_VC120_MFC_x86.194841A2_D0F2_3B96_9F71_05BA91BEA0FA</td><td>0</td></row>
 	</table>
 
 	<table name="ISFeatureSetupPrerequisites">
@@ -2263,6 +2269,8 @@
 		<col def="s255">Name</col>
 		<col def="S255">Destination</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>Microsoft_VC120_MFC_x64.05F0B5F5_44A8_3793_976B_A4F17AECF92C</td><td>0</td><td>Visual C++ 12.0 MFC (x64)</td><td/><td/></row>
+		<row><td>Microsoft_VC120_MFC_x86.194841A2_D0F2_3B96_9F71_05BA91BEA0FA</td><td>0</td><td>Visual C++ 12.0 MFC (x86)</td><td/><td/></row>
 	</table>
 
 	<table name="ISMergeModuleCfgValues">
@@ -3759,6 +3767,7 @@
 		<row><td>ID_STRING2</td><td>1033</td><td>Sergio Leal</td><td>0</td><td/><td>1579403377</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>blue crystal signer</td><td>0</td><td/><td>1176726637</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Fale conosco http://bluecryst.al</td><td>0</td><td/><td>1176757357</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>Instalar BLue Crystal</td><td>0</td><td/><td>1537477515</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>287476812</td></row>
 	</table>
 
@@ -4005,7 +4014,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{3E35CA74-EEC3-4172-8949-4D1A3DD005E8}</td></row>
 		<row><td>ISUSSignature</td><td>{39D71CFB-51E2-49F6-92F8-E8D52FDB3302}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewProject,viewISToday,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewUpdateService,viewFeatureFiles,viewObjects,viewUI,viewAppV,viewDependencies,viewShortcuts,viewRegistry,viewEnvironmentVariables,viewBillboards,viewSystemSearch,viewRelease,viewDesignPatches,viewSupportFiles,viewCustomActions,viewInstallScriptStd,viewTextMessages,viewIniFiles,viewFileExtensions</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewProject,viewISToday,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewUpdateService,viewFeatureFiles,viewObjects,viewUI,viewAppV,viewDependencies,viewShortcuts,viewRegistry,viewEnvironmentVariables,viewBillboards,viewSystemSearch,viewRelease,viewDesignPatches,viewSupportFiles,viewCustomActions,viewInstallScriptStd,viewTextMessages,viewIniFiles,viewFileExtensions,viewVRoots,viewServices</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4313,6 +4322,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
+		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
+		<row><td>ARPNOREPAIR</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING1##</td><td/></row>
@@ -4449,6 +4460,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">Component_</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>Registry1</td><td>1</td><td>Software\Google\Chrome\NativeMessagingHosts\bluecrystal.signer</td><td/><td>C:\Program Files (x86)\blue crystal\bluc.signer.json</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
+		<row><td>Registry3</td><td>2</td><td>SOFTWARE\Microsoft\Windows\CurrentVersion\Run</td><td>Blue Crystal</td><td>C:\Program Files (x86)\blue crystal\BluCRESTSigner.exe</td><td>ISX_DEFAULTCOMPONENT2</td><td>0</td></row>
+		<row><td>Registry5</td><td>2</td><td>SOFTWARE</td><td/><td/><td>ISX_DEFAULTCOMPONENT2</td><td>1</td></row>
+		<row><td>Registry6</td><td>2</td><td>SOFTWARE\Microsoft\Windows\CurrentVersion\Run</td><td>Blue Crystal</td><td>C:\Program Files (x86)\blue crystal\BluCRESTSigner.exe</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">

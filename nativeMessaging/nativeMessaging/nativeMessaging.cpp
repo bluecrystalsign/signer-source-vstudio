@@ -9,7 +9,7 @@ using namespace System;
 		{
 			signerCapi sign = signerCapi();
 			try {
-				/* rotina de testes para prequiçosos!
+				/* rotina de testes para prequiçosos! 
 				char * cert = sign.getCertificate("", "", "", "");
 				char * thumbrpint = sign.getThumbprint();
 				char * subject = sign.getSubject();

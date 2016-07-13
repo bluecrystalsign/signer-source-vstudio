@@ -36,6 +36,13 @@ Module BluC
         Return signer.getSubject
     End Function
     Public Function debugInfo() As DebugInfo
+        'Public subject As String
+        'Public issuer As String
+        'Public notBefore As DateTime
+        'Public notAfter As DateTime
+        'Public keyUsageDS As Boolean
+        'Public keyUsageNR As Boolean
+        'Public isPrivate As Boolean
         Dim ret As DebugInfo = New DebugInfo
 
         Dim store As New X509Store(StoreName.My)
@@ -44,6 +51,24 @@ Module BluC
         For Each nextCert As X509Certificate2 In certificates
             Dim nextDbgInfo As DbgAppCerts = New DbgAppCerts
             nextDbgInfo.subject = nextCert.SubjectName.Name
+            nextDbgInfo.issuer = nextCert.IssuerName.Name
+            nextDbgInfo.notBefore = nextCert.NotBefore.ToString("dd/MM/yyyy H:mm:ss zzz")
+            nextDbgInfo.notAfter = nextCert.NotAfter.ToString("dd/MM/yyyy H:mm:ss zzz")
+
+            Dim exts As X509ExtensionCollection = nextCert.Extensions
+            For Each nextExt As X509Extension In exts
+                If (nextExt.Oid.Value = "2.5.29.15") Then
+                    Dim kuExt As X509KeyUsageExtension = DirectCast(nextExt, X509KeyUsageExtension)
+                    Dim kuFlags As X509KeyUsageFlags = kuExt.KeyUsages
+                    If ((kuFlags And X509KeyUsageFlags.DigitalSignature) <> X509KeyUsageFlags.None) Then
+                        nextDbgInfo.keyUsageDS = True
+                    End If
+                    If ((kuFlags And X509KeyUsageFlags.NonRepudiation) <> X509KeyUsageFlags.None) Then
+                        nextDbgInfo.keyUsageNR = True
+                    End If
+                End If
+            Next
+            nextDbgInfo.isPrivate = nextCert.HasPrivateKey
             ret.certList.Add(nextDbgInfo)
 
         Next
